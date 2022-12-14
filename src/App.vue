@@ -1,15 +1,15 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1 class="text-6xl font-bold mt-24 text-slate-800">very cool reminder app</h1>
+  <ReminderList />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ReminderList from './components/ReminderList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ReminderList,
   }
 }
 </script>
@@ -20,7 +20,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
