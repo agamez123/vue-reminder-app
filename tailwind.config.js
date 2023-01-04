@@ -4,6 +4,9 @@ module.exports = {
   content: [],
   theme: {
     extend: {},
+    fontFamily: {
+      'nunito': ['Nunito','sans-serif']
+    }
   },
   plugins: [require("daisyui")],
 }
