@@ -22,10 +22,12 @@
 import useLogin from '@/composables/useLogin';
 import { auth } from '@/firebase/config';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
     setup() {
         const { error, isPending, login } = useLogin()
+        const router = useRouter()
 
         const email = ref(null)
         const password = ref(null)
@@ -33,6 +35,7 @@ export default {
         const handleSubmit = async () => {
             await login(email.value, password.value)
             console.log(auth.currentUser)
+            router.push({ name: 'home' })
         }
 
         return { email, password, error, isPending, handleSubmit }
