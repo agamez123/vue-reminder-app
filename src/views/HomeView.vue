@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="text-center">
     <h1 class="text-pink-400">Home</h1>
     <button class="btn">Hello daisyui</button>
   </div>
