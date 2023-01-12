@@ -5,12 +5,17 @@
             <label class="label">
                 <span class="label-text">Reminder name</span>
             </label>
-            <input type="text" v-model="remName" placeholder="Type here" class="input input-bordered text-accent w-full max-w-xs" />
+            <input type="text" v-model="title" placeholder="Type here" class="input input-bordered text-accent w-full max-w-xs" />
             
+            <label class="label">
+                <span class="label-text">Reminder description</span>
+            </label>
+            <input type="text" v-model="description" placeholder="Type here" class="input input-bordered text-accent w-full max-w-xs" />
+
             <label class="label">
                 <span class="label-text">Remind me at...</span>
             </label>
-            <input type="datetime-local" v-model="remTime" placeholder="Type here" class="input input-bordered text-accent w-full max-w-xs" />
+            <input type="datetime-local" v-model="date" placeholder="Type here" class="input input-bordered text-accent w-full max-w-xs" />
             
             <button class="btn">submit</button> 
         </form>
@@ -23,26 +28,42 @@ import { ref } from 'vue';
 
 //firebase imports
 import { db } from '@/firebase/config';
+import { collection, addDoc } from '@firebase/firestore'
+import getUser from '@/composables/getUser';
+import { Timestamp } from '@firebase/firestore';
 
 export default {
     setup() {
-        const remName = ref(null)
-        const remTime = ref(null)
+        const { user } = getUser()
+
+        const title = ref(null)
+        const description = ref(null)
+        const date = ref(null)
 
 
 
         const handleSubmit = async () => {
-            const colRef = collection(db,'reminders')
+            const dateRemind = new Date(date.value)
+            const remind = Timestamp.fromDate(dateRemind)
 
+            const timestamp = Timestamp.now()
+
+            const colRef = collection(db,'reminders')
+            
             await addDoc(colRef, {
-                name: remName.value,
-                time: remTime.value,
+                title: title.value,
+                description: description.value,
+                remindOn: remind,
+                createdAt: timestamp,
                 userUid: user.value.uid
             })
 
+            title.value = ''
+            description.value = ''
+            date.value = ''
         }
 
-        return { remName, remTime, handleSubmit}
+        return { title, description, date, handleSubmit }
     }
 }
 </script>
