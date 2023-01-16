@@ -30,12 +30,16 @@ import { ref } from 'vue';
 import { db } from '@/firebase/config';
 import { collection, addDoc } from '@firebase/firestore'
 import getUser from '@/composables/getUser';
+import getCollection from '@/composables/getCollection'
 import { Timestamp } from '@firebase/firestore';
 
 export default {
     setup() {
         const { user } = getUser()
 
+        const docs = getCollection('reminders', ['userUid','==',user.value.uid])
+        console.log(docs)
+        
         const title = ref(null)
         const description = ref(null)
         const date = ref(null)

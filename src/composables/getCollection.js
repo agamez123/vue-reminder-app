@@ -27,7 +27,10 @@ const getCollection = async (col, q) => {
         onInvalidate(() => unsub())
     })
 
+    console.log(documents)
+
     return { documents }
 } 
+
 
 export default getCollection
