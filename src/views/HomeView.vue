@@ -1,10 +1,16 @@
 <template>
-  <div class="text-center font-nunito">
+  <div class="text-center font-nunito text-pink-400">
     <h1 class="text-pink-400">Home</h1>
     <button class="btn" @click="handleClick">Hello daisyui</button>
-    <div v-for="doc in reminders" :key="doc.id">
-      <ReminderCard :title="doc.title" :description="doc.description"/>
-      <p>words</p>
+
+    <div class="grid grid-cols-3 gap-4">
+      <div v-for="doc in reminders" :key="doc.id">
+        <div>
+          <router-link :to="{ name:'reminder', params: { id: doc.id } }">
+            <ReminderCard :title="doc.title" :description="doc.description"/>
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,10 +26,7 @@ export default {
   components: { ReminderCard },
   setup() {
     const { user } = getUser()
-
-    let reminders
-    getCollection('reminders', ['userUid','==',user.value.uid]).then(docs => reminders = docs.documents)
-
+    const { documents: reminders } = getCollection('reminders', ['userUid','==',user.value.uid])
 
     const handleClick = () => {
       console.log(reminders)

@@ -4,7 +4,7 @@ import { ref, watchEffect } from 'vue'
 import { db } from '@/firebase/config'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
 
-const getCollection = async (col, q) => {
+const getCollection = (col, q) => {
     const documents = ref(null)
     
     //collection refrence
@@ -27,7 +27,6 @@ const getCollection = async (col, q) => {
         onInvalidate(() => unsub())
     })
 
-    console.log(documents)
 
     return { documents }
 } 
