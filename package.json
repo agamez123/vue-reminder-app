@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@vuepic/vue-datepicker": "^3.6.5",
     "core-js": "^3.8.3",
     "daisyui": "^2.46.1",
     "firebase": "^9.15.0",
